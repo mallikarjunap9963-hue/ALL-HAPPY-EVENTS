@@ -13,7 +13,7 @@ const locations = [
   {
     city: "Tirupati",
     listings: "150+ Listings",
-    image: "/src/images/locations/location_3.jpg",
+    image: "/src/images/locations/location_5.jpg",
   },
   {
     city: "Rajahmundry",

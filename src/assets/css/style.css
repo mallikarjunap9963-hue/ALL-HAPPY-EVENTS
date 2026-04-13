@@ -1,5 +1,618 @@
-@charset "UTF-8";
+/* style.css - All Happy Events Register Page */
 
+/* 💠 Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 💠 Page overlay & background */
+.register-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 💠 Register Box (Card) */
+.register-box {
+  background: #fff8f0; /* soft cream */
+  width: 100%;
+  max-width: 450px;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  position: relative;
+  text-align: center;
+  animation: fadeIn 0.4s ease-in-out;
+  border-top: 8px solid #ff6b81; /* colorful top border */
+}
+
+/* 💠 Heading */
+.register-box h2 {
+  font-size: 30px;
+  color: #ff4d6d;
+  margin-bottom: 25px;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px #ffd6d6;
+}
+
+/* 💠 Close button (optional) */
+.register-box .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 22px;
+  color: #ff6b81;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.register-box .close-btn:hover {
+  color: #ff4d6d;
+}
+
+/* 💠 Input Fields */
+.register-box input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 1px solid #ffd6d6;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.register-box input:focus {
+  border-color: #ff4d6d;
+  box-shadow: 0 0 8px rgba(255, 77, 109, 0.3);
+  outline: none;
+}
+
+/* 💠 Error Messages */
+.error {
+  color: #ff4d4f;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+/* 💠 Form errors under inputs */
+.register-box p {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 2px;
+  text-align: left;
+}
+
+/* 💠 Buttons */
+.register-box button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 15px;
+  background: #ff6b81;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-box button:hover {
+  background: #ff4d6d;
+  box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+}
+
+/* 💠 OTP section */
+.otp-section p {
+  font-weight: 500;
+  color: #ff4d6d;
+  margin-bottom: 15px;
+}
+
+.otp-section button.resend-btn {
+  margin-top: 10px;
+  background: transparent;
+  border: 1px solid #ff4d6d;
+  color: #ff4d6d;
+}
+
+.otp-section button.resend-btn:hover {
+  background: #ff4d6d;
+  color: #fff;
+}
+
+/* 💠 Animations */
+@keyframes fadeIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 💠 Responsive */
+@media (max-width: 480px) {
+  .register-box {
+    padding: 30px 20px;
+  }
+
+  .register-box h2 {
+    font-size: 24px;
+  }
+}
+/* style.css - All Happy Events Login Page */
+
+/* 💠 Reset & body */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 💠 Page background */
+.login-page {
+  background: linear-gradient(135deg, #ffafbd, #ffc3a0); /* cheerful pastel gradient */
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 💠 Login card */
+.login-card {
+  background: #fff8f0; /* soft cream background */
+  padding: 40px 30px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.4s ease-in-out;
+  border-top: 8px solid #ff6b81; /* colorful top border */
+}
+
+/* 💠 Heading */
+.login-card h3 {
+  font-size: 28px;
+  color: #ff4d6d;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.login-card .subtitle {
+  font-size: 14px;
+  color: #ff6b81;
+  margin-bottom: 20px;
+}
+
+/* 💠 Error messages */
+.error {
+  color: #ff4d4f;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* 💠 Input group (phone + country code) */
+.input-group-custom {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid #ffd6d6;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.input-group-custom .country-code {
+  padding: 12px 10px;
+  background: #ffe3e6;
+  color: #ff4d6d;
+  font-weight: 600;
+  border-right: 1px solid #ffd6d6;
+}
+
+.input-group-custom input {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.input-group-custom input:focus {
+  outline: none;
+}
+
+/* 💠 Input validation */
+.invalid-feedback {
+  color: #ff4d4f;
+  font-size: 12px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+/* 💠 Buttons */
+.login-card button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 15px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-card .btn-primary {
+  background: #ff6b81;
+  color: #fff;
+}
+
+.login-card .btn-primary:hover {
+  background: #ff4d6d;
+  box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+}
+
+.login-card button.mt-5 {
+  background: #ff6b81;
+  color: #fff;
+}
+
+.login-card button.mt-5:hover {
+  background: #ff4d6d;
+}
+
+/* 💠 OTP text */
+.otp-text {
+  margin: 15px 0;
+  color: #ff4d6d;
+  font-weight: 500;
+}
+
+/* 💠 Timer and resend */
+.timer {
+  margin-top: 10px;
+  color: #ff6b81;
+  font-size: 13px;
+}
+
+button.resend {
+  margin-top: 10px;
+  border: 1px solid #ff4d6d;
+  background: transparent;
+  color: #ff4d6d;
+  border-radius: 12px;
+}
+
+button.resend:hover {
+  background: #ff4d6d;
+  color: #fff;
+}
+
+/* 💠 Animations */
+@keyframes fadeIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 💠 Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .login-card h3 {
+    font-size: 24px;
+  }
+}
+/* style.css - OTP Input Styling for All Happy Events */
+
+/* 💠 OTP container */
+.otp-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* space between digits */
+  margin: 20px 0;
+}
+
+/* 💠 OTP input boxes */
+.otp-container input {
+  width: 45px;
+  height: 55px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: 2px solid #ffd6d6;
+  transition: all 0.3s ease;
+  background: #fff8f0;
+  color: #ff4d6d;
+}
+
+/* 💠 Focus effect */
+.otp-container input:focus {
+  border-color: #ff6b81;
+  box-shadow: 0 0 8px rgba(255, 77, 109, 0.3);
+  outline: none;
+  animation: pop 0.2s ease-in-out;
+}
+
+/* 💠 Hover effect */
+.otp-container input:hover {
+  border-color: #ff6b81;
+}
+
+/* 💠 Small pop animation when typing */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 💠 Placeholder style */
+.otp-container input::placeholder {
+  color: #ffb3b3;
+  font-weight: 500;
+}
+
+/* 💠 Responsive for mobile */
+@media (max-width: 480px) {
+  .otp-container input {
+    width: 40px;
+    height: 50px;
+    font-size: 22px;
+  }
+}
+/* ================== Global Reset & Typography ================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #fdf6f2; /* light neutral background */
+  color: #333;
+  line-height: 1.5;
+}
+
+/* ================== Modal Overlay ================== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45); /* semi-transparent dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px 30px;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* ================== Close Button ================== */
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 22px;
+  color: #ff6b81;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #ff4d6d;
+}
+
+/* ================== Card Titles ================== */
+.login-popup h2,
+.register-popup h2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #ff4d6d;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.login-popup .subtitle,
+.register-popup .subtitle {
+  font-size: 14px;
+  color: #ff6b81;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ================== Form Inputs ================== */
+input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border: 1.5px solid #e3e3e3;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #ff6b81;
+  box-shadow: 0 0 8px rgba(255, 77, 109, 0.2);
+  outline: none;
+}
+
+/* ================== Phone Input Group ================== */
+.input-group-custom {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1.5px solid #e3e3e3;
+}
+
+.input-group-custom .country-code {
+  background: #fff0f2;
+  padding: 12px 10px;
+  font-weight: 600;
+  color: #ff4d6d;
+  border-right: 1px solid #e3e3e3;
+}
+
+/* ================== OTP Inputs ================== */
+.otp-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0 20px 0;
+}
+
+.otp-container input {
+  width: 50px;
+  height: 55px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 10px;
+  border: 1.5px solid #e3e3e3;
+  background-color: #fff8f0;
+  transition: all 0.2s ease;
+}
+
+.otp-container input:focus {
+  border-color: #ff6b81;
+  box-shadow: 0 0 6px rgba(255, 77, 109, 0.25);
+}
+
+/* ================== Buttons ================== */
+button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.btn-primary {
+  background-color: #ff6b81;
+  color: #fff;
+}
+
+button.btn-primary:hover {
+  background-color: #ff4d6d;
+  box-shadow: 0 5px 15px rgba(255, 77, 109, 0.25);
+}
+
+button.resend {
+  background: transparent;
+  border: 1px solid #ff4d6d;
+  color: #ff4d6d;
+}
+
+button.resend:hover {
+  background: #ff4d6d;
+  color: #fff;
+}
+
+/* ================== Error & Info Text ================== */
+.error {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.invalid-feedback {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.timer {
+  font-size: 13px;
+  color: #ff6b81;
+  text-align: center;
+  margin-top: 6px;
+}
+
+.otp-text {
+  text-align: center;
+  color: #ff4d6d;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+/* ================== Animations ================== */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* ================== Responsive ================== */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 30px 20px;
+  }
+
+  .otp-container input {
+    width: 42px;
+    height: 50px;
+    font-size: 18px;
+  }
+}
 /* CSS Document */
 
 /*------------------------------------------------------------------
@@ -109,86 +722,6 @@ input[type="text"] {
   -o-transition: all 400ms ease-in-out;
   -ms-transition: all 400ms ease-in-out;
   transition: all 400ms ease-in-out;
-}
-.wedding-listing {
-  border: 1px solid #eee;
-  background: #fff;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.wedding-listing img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-.img-content {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  color: #fff;
-}
-
-.top {
-  display: flex;
-  justify-content: space-between;
-}
-
-.featured {
-  background: orange;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-.price {
-  background: #000;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-.bottom {
-  position: absolute;
-  bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
-}
-
-.tags {
-  background: #e91e63;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-.favorite {
-  font-size: 18px;
-}
-
-.content {
-  padding: 12px;
-}
-
-.verified {
-  color: green;
-}
-
-.filter-sidebar {
-  border: 1px solid #eee;
-  padding: 15px;
-  background: #fafafa;
-}
-
-.apply-btn {
-  background: #e91e63;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  margin-top: 10px;
 }
 
 a:hover {
@@ -952,14 +1485,9 @@ Background Color / Color
   text-transform: capitalize;
   font-size: 3rem;
 }
-.malli{
-  padding-right:0px ;
-  padding-left: 0px;
-  padding: 20px;
-}
 
 .call-out-bg {
-  background: url(/src/images/callout_bg.jpg) no-repeat center center;
+  background: url(../../images/callout_bg.jpg) no-repeat center center;
   background-size: cover;
   padding: 7rem 0;
   position: relative;
@@ -2228,7 +2756,7 @@ header .btn {
 
 /*---- 5.4 Page Header ---*/
 .breadcrumbs-page {
-  background-image: url(/src//images/breadcrumbs_bg.jpg);
+  background-image: url(../../images/slider//venue_list_breadcrum.avif);
   background-repeat: no-repeat;
   padding: 9rem 0 0 0;
   background-position: top center;
@@ -2447,7 +2975,7 @@ header .btn {
 }
 
 .style-second {
-  background: url(/src/images/hero_banner.jpg) no-repeat center center;
+  background: url(../../images//hero_banner.jpg) no-repeat center center;
   background-size: cover;
   position: relative;
   min-height: 750px;
@@ -5747,35 +6275,10 @@ button.swiper-pagination-bullet {
 
 .wedding-listing .img .img-content .top .featured,
 .wedding-listing .img .img-content .top .price {
-  background: #ff0090;
+  background: #fff;
   padding: 5px 10px 7px 2px;
   white-space: nowrap;
   font-size: 0.875rem;
-}
-.photographer-card img {
-  height: 230px;
-  object-fit: cover;
-}
-
-.photographer-card .tag {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: #ff2e74;
-  color: #fff;
-  padding: 4px 10px;
-  font-size: 12px;
-  border-radius: 20px;
-}
-
-.filters {
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
-}
-
-.card {
-  border-radius: 10px;
 }
 
 .wedding-listing .img .img-content .top .featured i,
@@ -6171,12 +6674,12 @@ button.swiper-pagination-bullet {
 /*----  9.10  Search Result Start ---*/
 
 .banner-image {
-  background-image: url(../src/images/slider/venue_list_breadcrumb.png) !important;
+  background-image: url(../../images/slider/venue_list_breadcrum.avif) !important;
   background-position: center !important;
 }
 
 .search-result-header {
-  background-image: url(/src/images/vendors/banquet_1.jpg) !important;
+  background-image: url(../../images/slider/venue_photography_breadcrumb.png);
   background-repeat: no-repeat;
   padding: 4rem 0 0 0;
   background-position: top center;

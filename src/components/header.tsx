@@ -1,17 +1,16 @@
 import { IconArrowRight, IconMenu2, IconShoppingBag } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import logo from '../images/aLl_happy_events_final.png';
-import LoginModal from './LoginModal';
 
 const Header = () => {
   const navLinks = [
     {
       name: "Venues",
-      link: "/venu"   // give real route if you have
+      link: "#"
     },
     {
       name: "Vendors",
-      link: "/vendors/photographers",  // main vendor landing
+      link: "#",
       megaMenu: [
         {
           title: "Photographers",
@@ -23,33 +22,33 @@ const Header = () => {
         {
           title: "Pre Event Shoot",
           links: [
-            { label: "Pre Event Shoot Locations", path: "/vendors/pre-event-locations" },
-            { label: "Pre Event Photographers", path: "/vendors/pre-event-photographers" }
+            { label: "Pre Event Shoot Locations", path: "/pre-event-photographers" },
+            { label: "Pre Event Photographers", path: "/pre-event-photographers" }
           ]
         },
         {
           title: "Makeup",
           links: [
-            { label: "Bridal Makeup Artists", path: "/vendors/bridal-makeup" },
-            { label: "Family Makeup", path: "/vendors/family-makeup" }
+            { label: "Bridal Makeup Artists", path: "#" },
+            { label: "Family Makeup", path: "#" }
           ]
         },
         {
           title: "Planning & Decor",
           links: [
-            { label: "Event Planners", path: "/vendors/event-planners" },
-            { label: "Decorators", path: "/vendors/decorators" }
+            { label: "Event Planners", path: "#" },
+            { label: "Decorators", path: "#" }
           ]
         }
       ]
     },
     {
       name: "Real Weddings",
-      link: "/real-weddings"
+      link: "#"
     },
     {
       name: "Blog",
-      link: "/blogs",
+      link: "#",
       megaMenu: [
         {
           title: "South Indian Wedding",
@@ -86,9 +85,11 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg bdr-nav w-100 px-3">
 
         {/* LOGO */}
-        <Link className="navbar-brand" to="/">
-          <img src={logo} className="header_logo my-2" alt="logo" />
-        </Link>
+        <div className="d-flex align-items-center">
+          <Link className="navbar-brand" to="/">
+            <img src={logo} className="header_logo my-2" alt="logo" />
+          </Link>
+        </div>
 
         {/* NAV */}
         <div className="collapse navbar-collapse justify-content-center">
@@ -96,11 +97,10 @@ const Header = () => {
             {navLinks.map((item, index) => (
               <li key={index} className="nav-item dropdown mega-parent">
 
-                {/* MAIN LINK FIXED */}
-                <Link className="nav-link" to={item.link}>
+                <a className="nav-link" href={item.link}>
                   {item.name}
                   {item.megaMenu && <i className="fa fa-chevron-down"></i>}
-                </Link>
+                </a>
 
                 {/* DROPDOWN */}
                 {item.megaMenu && (
@@ -126,6 +126,7 @@ const Header = () => {
                     </div>
                   </div>
                 )}
+
               </li>
             ))}
           </ul>
@@ -138,25 +139,30 @@ const Header = () => {
           </button>
 
           <div className="rr-header-right d-flex align-items-center">
+
+            {/* CART */}
             <div className="rr-header-icon-card d-none d-xl-block">
               <IconShoppingBag className="text-light" />
               <span>0</span>
             </div>
 
+            {/* LOGIN BUTTON */}
             <div className="rr-header-contat d-none d-md-block ml-35">
-              <button
-                className="rr-btn border-0 bg-transparent"
-                data-bs-toggle="modal"
-                data-bs-target="#loginModal"
-              >
+              <Link className="rr-btn me-2" to="/login">
                 <span>Login <IconArrowRight /></span>
-              </button>
+              </Link>
             </div>
+
+            {/* REGISTER BUTTON */}
+            <div className="rr-header-contat d-none d-md-block">
+              <Link className="rr-btn register-btn" to="/register">
+                <span>Register <IconArrowRight /></span>
+              </Link>
+            </div>
+
           </div>
         </div>
-
       </nav>
-      <LoginModal />
     </header>
   );
 };

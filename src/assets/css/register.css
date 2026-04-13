@@ -1,0 +1,133 @@
+/* style.css */
+
+/* 💠 Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 💠 Body */
+body {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 💠 Register Page Container */
+.register-page {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+/* 💠 Register Box */
+.register-box {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+/* 💠 Heading */
+.register-box h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* 💠 Form Inputs */
+.register-box input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.register-box input:focus {
+  border-color: #2575fc;
+  outline: none;
+  box-shadow: 0 0 5px rgba(37, 117, 252, 0.4);
+}
+
+/* 💠 Error Message */
+.error {
+  color: #ff4d4f;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* 💠 Form Error Text */
+.register-box p {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 2px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+/* 💠 Buttons */
+.register-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: #2575fc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.register-box button:hover {
+  background: #6a11cb;
+}
+
+/* 💠 OTP Section */
+.register-box .otp-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-box .otp-section p {
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+.register-box .otp-section button {
+  width: 100%;
+}
+
+/* 💠 Resend OTP */
+.register-box .resend-btn {
+  background: transparent;
+  color: #2575fc;
+  border: 1px solid #2575fc;
+  margin-top: 10px;
+}
+
+.register-box .resend-btn:hover {
+  background: #2575fc;
+  color: #fff;
+}
+
+/* 💠 Responsive */
+@media (max-width: 480px) {
+  .register-box {
+    padding: 25px 15px;
+  }
+
+  .register-box h2 {
+    font-size: 22px;
+  }
+}

@@ -1,61 +1,90 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const LoginModal = () => {
-  const [form, setForm] = useState({
-    name: "",
-    mobile: "",
+type Props = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+const schema = z.object({
+  username: z
+    .string()
+    .min(5, "Username must be at least 5 characters")
+    .regex(/^[a-zA-Z0-9]+$/, "Only letters and numbers allowed"),
+
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/[a-z]/, "At least one lowercase letter required")
+    .regex(/[A-Z]/, "At least one uppercase letter required")
+    .regex(/[0-9]/, "At least one number required")
+    .regex(/[^A-Za-z0-9]/, "At least one special character required"),
+});
+
+type FormData = z.infer<typeof schema>;
+
+const LoginModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  if (!isOpen) return null;
 
-  const handleSubmit = () => {
-    console.log("Login Data:", form);
-    alert("Login Submitted!");
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+    alert("Login Successful");
+    onClose();
   };
 
   return (
-    <div
-      className="modal fade"
-      id="loginModal"
-      tabIndex={-1}
-      aria-hidden="true"
-    >
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content p-4">
+    <div className="login-overlay" onClick={onClose}>
+      <div className="login-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="login-close" onClick={onClose}>
+          ×
+        </button>
 
-          <h3 className="mb-3 text-center">Login</h3>
+        <h2>Login</h2>
 
-          <div className="mb-3">
-            <label>Name</label>
-            <input
-              type="text"
-              name="name"
-              className="form-control"
-              placeholder="Enter your name"
-              value={form.name}
-              onChange={handleChange}
-            />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="login-group">
+            <label>Username</label>
+            <input {...register("username")} />
+            {errors.username && (
+              <p className="login-error">{errors.username.message}</p>
+            )}
           </div>
 
-          <div className="mb-3">
-            <label>Mobile Number</label>
-            <input
-              type="tel"
-              name="mobile"
-              className="form-control"
-              placeholder="Enter mobile number"
-              value={form.mobile}
-              onChange={handleChange}
-            />
+          <div className="login-group">
+            <label>Password</label>
+            <div className="password-field">
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("password")}
+              />
+              <span
+                className="toggle-pass"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </span>
+            </div>
+            {errors.password && (
+              <p className="login-error">{errors.password.message}</p>
+            )}
           </div>
 
-          <button className="btn btn-primary w-100" onClick={handleSubmit}>
-            Submit
+          <button type="submit" className="login-btn">
+            Login
           </button>
-
-        </div>
+        </form>
       </div>
     </div>
   );
