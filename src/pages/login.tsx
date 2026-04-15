@@ -1,162 +1,148 @@
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 import { sendOtp, verifyOtp, resendOtp } from "../api/auth-api";
 import OtpInput from "../components/otp-input";
-import { useLoginStore } from "../store/login-store";
+import { useAuthStore } from "../store/auth-store";
 import "../assets/css/style.css";
 
 const loginSchema = z.object({
-  phone_number: z
-    .string()
-    .length(10, "Phone number must be 10 digits"),
+  phone_number: z.string().length(10, "Phone number must be 10 digits"),
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isOtpPage = location.pathname.includes("/otp");
+  const [searchParams] = useSearchParams();
+  const phoneFromUrl = searchParams.get("phone") || "";
 
-  const {
-    step,
-    otp,
-    timer,
-    error,
-    setStep,
-    setOtp,
-    setError,
-    startTimer,
-  } = useLoginStore();
+  const { setToken } = useAuthStore();
+
+  const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
+  const [timer, setTimer] = useState(0);
+  const [error, setError] = useState("");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
   } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
 
+  useEffect(() => {
+    setError("");
+  }, [location.pathname]);
+
+  const startTimer = () => {
+    setTimer(30);
+    const interval = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
+
   const sendOtpMutation = useMutation({
     mutationFn: (data: LoginFormInputs) =>
       sendOtp("+91" + data.phone_number),
-
-    onSuccess: () => {
-      setStep("OTP");
-      setError("");
+    onSuccess: (_, variables) => {
+      navigate(`/login/otp?phone=${variables.phone_number}`, {
+        replace: true,
+      });
       startTimer();
     },
-
-    onError: (err: any) => {
-      setError(err.response?.data?.message || "User not found");
-    },
+    onError: (err: any) =>
+      setError(err.response?.data?.message || "User not found"),
   });
 
-  // 🔹 VERIFY OTP
   const verifyMutation = useMutation({
-    mutationFn: (data: { phone_number: string; otp: string }) =>
-      verifyOtp(data),
-
+    mutationFn: verifyOtp,
     onSuccess: (res: any) => {
-      const token =
-        // res?.data?.token ||
-        // res?.data?.access_token ;
-        res?.data?.data?.token;
-
-      if (!token) {
-        setError("Login failed");
-        return;
-      }
-
-      localStorage.setItem("token", token);
+      const token = res?.data?.data?.token;
+      if (!token) return setError("Login failed");
+      setToken(token);
       navigate("/", { replace: true });
     },
-
-    onError: (err: any) => {
-      setError(err.response?.data?.message || "Invalid OTP");
-    },
+    onError: (err: any) =>
+      setError(err.response?.data?.message || "Invalid OTP"),
   });
+
   const onSubmit = (data: LoginFormInputs) => {
     sendOtpMutation.mutate(data);
   };
 
   const handleVerify = () => {
     if (otp.join("").length !== 6) {
-      setError("Enter valid 6-digit OTP");
+      setError("Enter valid OTP");
       return;
     }
 
     verifyMutation.mutate({
-      phone_number: "+91" + getValues("phone_number"),
+      phone_number: "+91" + phoneFromUrl,
       otp: otp.join(""),
     });
   };
 
   const handleResend = async () => {
-    await resendOtp("+91" + getValues("phone_number"));
+    if (timer > 0) return;
+    await resendOtp("+91" + phoneFromUrl);
     startTimer();
   };
 
+  const handleChangeNumber = () => {
+    setOtp(["", "", "", "", "", ""]);
+    setTimer(0);
+    setError("");
+    navigate("/login", { replace: true });
+  };
+
   return (
-    <div className="login-page d-flex justify-content-center align-items-center vh-100">
-      <div className="login-card p-4">
-
-        <h3 className="text-center mb-2">Login</h3>
-        <p className="text-center subtitle">Login with OTP</p>
-
+    <div className="login-page">
+      <div className="login-card">
+        <h3>Login</h3>
         {error && <p className="error">{error}</p>}
 
-        {/* STEP 1 */}
-        {step === "PHONE" && (
+        {!isOtpPage && (
           <form onSubmit={handleSubmit(onSubmit)}>
-
-            <div className="input-group-custom">
-              <span className="country-code">+91</span>
-              <input
-                type="text"
-                placeholder="Enter phone number"
-                {...register("phone_number")}
-              />
-            </div>
-
-            {errors.phone_number && (
-              <p className="invalid-feedback">
-                {errors.phone_number.message}
-              </p>
-            )}
-
-            <button className="btn btn-primary"  type="submit"> 
-              {sendOtpMutation.isPending ? "Sending OTP..." : "Send OTP"}
+            <input placeholder="Phone Number" {...register("phone_number")} />
+            <p>{errors.phone_number?.message}</p>
+            <button type="submit" disabled={sendOtpMutation.isPending}>
+              Send OTP
             </button>
           </form>
         )}
 
-        {/* STEP 2 */}
-        {step === "OTP" && (
+        {isOtpPage && (
           <>
-            <p className="otp-text">
-              OTP sent to <b>+91{getValues("phone_number")}</b>
-            </p>
-
+            <p>OTP sent to +91{phoneFromUrl}</p>
             <OtpInput otp={otp} setOtp={setOtp} />
-
-            <button className="mt-5" onClick={handleVerify}> 
-              {verifyMutation.isPending ? "Verifying..." : "Verify OTP"}
+            <button onClick={handleVerify} disabled={verifyMutation.isPending}>
+              Verify OTP
             </button>
 
             {timer > 0 ? (
-              <p className="timer">Resend in {timer}s</p>
+              <p>Resend in {timer}s</p>
             ) : (
-              <button className="resend" onClick={handleResend}>
-                Resend OTP
-              </button>
+              <button onClick={handleResend}>Resend OTP</button>
             )}
+
+            <button onClick={handleChangeNumber}>
+              Change Number
+            </button>
           </>
         )}
-
       </div>
     </div>
   );

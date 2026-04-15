@@ -6700,6 +6700,9 @@ button.swiper-pagination-bullet {
   top: 0;
   background: rgba(0, 0, 0, 0.4);
 }
+.login-card button {
+  background-color: #ff6b81;
+}
 
 .search-result-header .container {
   position: relative;

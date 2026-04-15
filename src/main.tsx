@@ -21,18 +21,18 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Header />
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/:id" element={<BlogDetailsPage />} />
-
-          {/* Vendors routes */}
           <Route path="/vendors/:type?" element={<VendorPage />} />
           <Route path="/vendors/details/:id" element={<VendorsDetailsPage />} />
 
-          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/login/otp" element={<Login />} />
+
+          <Route path="/register" element={<Register />} />
+          <Route path="/register/otp" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

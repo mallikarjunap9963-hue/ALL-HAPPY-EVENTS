@@ -1,16 +1,20 @@
 import axios from "axios";
+import { useAuthStore } from "../store/auth-store";
 
 const axiosInstance = axios.create({
   baseURL: "https://allhappyevents.jbservices.in/api",
   headers: {
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });
+
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = useAuthStore.getState().token;
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 
