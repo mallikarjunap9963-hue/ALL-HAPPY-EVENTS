@@ -1,15 +1,6 @@
-// src/components/blog/BlogCard.tsx
+import type { BlogDetails } from "../types/blog.type";
 
-type BlogPost = {
-  id: number;
-  title: string;
-  date: string;
-  category: string;
-  description: string;
-  image: string;
-};
-
-const BlogCard = ({ post }: { post: BlogPost }) => {
+const BlogCard = ({ post }: { post: BlogDetails }) => {
   return (
     <div className="row blog-wrap align-items-center mb-5">
       {/* Image Side */}
@@ -30,8 +21,8 @@ const BlogCard = ({ post }: { post: BlogPost }) => {
           <h3 className="blog-title">{post.title}</h3>
 
           <div className="blog-meta">
-            <span className="badge-date">{post.date}</span>
-            <span className="badge-category">{post.category}</span>
+            <span className="badge-date">{post.created_at}</span>
+            <span className="badge-category">{post.blog_category.name}</span>
           </div>
 
           <p>{post.description}</p>

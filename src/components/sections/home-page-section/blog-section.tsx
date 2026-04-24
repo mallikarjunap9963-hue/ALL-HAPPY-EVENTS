@@ -1,14 +1,17 @@
-// src/components/blog/BlogList.tsx
 
+import { useQuery } from "@tanstack/react-query";
+import { getBlogs } from "../../../services/blog.service";
 import BlogCard from "../../blog-section-card";
-import { BLOGS } from "../../blog-section-data";
+import type { BlogDetails } from "../../../types/blog.type";
 
 const BlogList = () => {
+  const { data: blogsData } = useQuery({ queryKey: ["blogs"], queryFn: getBlogs });
+  const blogs: BlogDetails[] = blogsData?.data?.blogs || [];
   return (
     <section className="wide-tb-90">
       <div className="container">
-        {BLOGS.map((post) => (
-          <BlogCard key={post.id} post={post} />
+        {blogs?.map((post: BlogDetails) => (
+          <BlogCard key={post.slug} post={post} />
         ))}
       </div>
     </section>

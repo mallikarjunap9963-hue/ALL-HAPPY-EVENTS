@@ -6,7 +6,7 @@ const Header = () => {
   const navLinks = [
     {
       name: "Venues",
-      link: "#"
+      link: "/venues"
     },
     {
       name: "Vendors",
@@ -44,39 +44,15 @@ const Header = () => {
     },
     {
       name: "Real Weddings",
-      link: "#"
+      link: "/real-weddings"
     },
     {
-      name: "Blog",
-      link: "#",
-      megaMenu: [
-        {
-          title: "South Indian Wedding",
-          mainLink: "/blogs",
-          links: [
-            { label: "Bridal Makeup", path: "/blogs" },
-            { label: "Honeymoon Travel", path: "/blogs" },
-            { label: "Bridal Hairstyles", path: "/blogs" },
-            { label: "Event Decor Ideas", path: "/blogs" }
-          ]
-        },
-        {
-          title: "Popular Sections",
-          links: [
-            { label: "Real Brides Reveal", path: "/blogs" },
-            { label: "Bridal Buys", path: "/blogs" },
-            { label: "Mehendi Ideas", path: "/blogs" }
-          ]
-        },
-        {
-          title: "Most Searched",
-          links: [
-            { label: "Best Bridal Entry Songs", path: "/blogs" },
-            { label: "Bridal Mehendi Designs", path: "/blogs" },
-            { label: "Wedding Hashtags", path: "/blogs" }
-          ]
-        }
-      ]
+      name: "Blogs",
+      link: "/blogs",
+    },
+    {
+      name: "FAQs",
+      link: "/faqs",
     }
   ];
 
@@ -97,24 +73,18 @@ const Header = () => {
             {navLinks.map((item, index) => (
               <li key={index} className="nav-item dropdown mega-parent">
 
-                <a className="nav-link" href={item.link}>
+                <Link className="nav-link" to={item.link}>
                   {item.name}
                   {item.megaMenu && <i className="fa fa-chevron-down"></i>}
-                </a>
+                </Link>
 
-                {/* DROPDOWN */}
+                {/* MEGA MENU */}
                 {item.megaMenu && (
                   <div className="mega-menu">
                     <div className="mega-grid">
                       {item.megaMenu.map((col, i) => (
                         <div className="mega-col" key={i}>
-                          <h4>
-                            {col.mainLink ? (
-                              <Link to={col.mainLink}>{col.title}</Link>
-                            ) : (
-                              col.title
-                            )}
-                          </h4>
+                          <h4>{col.title}</h4>
 
                           {col.links.map((link, j) => (
                             <Link key={j} to={link.path}>
@@ -146,14 +116,14 @@ const Header = () => {
               <span>0</span>
             </div>
 
-            {/* LOGIN BUTTON */}
+            {/* LOGIN */}
             <div className="rr-header-contat d-none d-md-block ml-35">
               <Link className="rr-btn me-2" to="/login">
                 <span>Login <IconArrowRight /></span>
               </Link>
             </div>
 
-            {/* REGISTER BUTTON */}
+            {/* REGISTER */}
             <div className="rr-header-contat d-none d-md-block">
               <Link className="rr-btn register-btn" to="/register">
                 <span>Register <IconArrowRight /></span>
